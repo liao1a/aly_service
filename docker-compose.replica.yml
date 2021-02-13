@@ -1,0 +1,48 @@
+services:
+  mongodb-p:
+    build: 
+      context: ./mongodb
+      dockerfile: Dockerfile-primary
+    container_name: aly-mongo-p
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mongodb-p:/data/db
+    expose:
+      - ${TMW_MONGODB_PORT:-37017}
+    ports:
+      - ${TMW_MONGODB_PORT:-37017}:${TMW_MONGODB_PORT:-37017}
+    environment:
+      - TMW_REPLICA_SET_NAME=${TMW_REPLICA_SET_NAME:-aly_mongo_rs}
+      - TMW_MONGODB_PORT=${TMW_MONGODB_PORT:-37017}
+      - TMW_MONGODB_S_PORT=${TMW_MONGODB_S_PORT:-37018}
+      - TMW_MONGODB_A_PORT=${TMW_MONGODB_A_PORT:-37019} 
+    logging:
+      driver: 'none'
+    entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_PORT:-37017}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]
+
+  mongodb-s:
+    build: ./mongodb
+    image: tms-mongodb/mongo:latest
+    container_name: aly-mongo-s
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mongodb-s:/data/db
+    expose:
+      - ${TMW_MONGODB_S_PORT:-37018}
+    ports:
+      - ${TMW_MONGODB_S_PORT:-37018}:${TMW_MONGODB_S_PORT:-37018}
+    logging:
+      driver: 'none'
+    entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_S_PORT:-37018}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]
+
+  mongodb-a:
+    build: ./mongodb
+    image: tms-mongodb/mongo:latest
+    container_name: aly-mongo-a
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mongodb-a:/data/db
+    expose:
+      - ${TMW_MONGODB_A_PORT:-37019}
+    ports:
+      - ${TMW_MONGODB_A_PORT:-37019}:${TMW_MONGODB_A_PORT:-37019}
+    logging:
+      driver: 'none'
+    entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_A_PORT:-37019}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]

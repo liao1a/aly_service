@@ -1,0 +1,38 @@
+# version: '1.0'
+services:
+  mongodb:
+    build: ./mongodb
+    image: tms-mongodb/mongo:latest
+    container_name: aly-mongo
+    restart: always
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mongo_dk_db:/data/db
+    ports:
+      - '27027:27017'
+    logging:
+      driver: 'none'
+
+  redis:
+    image: redis
+    container_name: aly-redis
+    volumes:
+      # - ./datadir:/data
+      - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - /Users/lya/Desktop/work/logs/redis:/logs
+    command:
+      - /bin/bash
+      - -c
+      - |
+        chmod -R 777 /logs
+        redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6399:6379
+
+  nginx:
+    build: ./nginx
+    image: nginx
+    container_name: aly-nginx
+    volumes:
+      - ./nginx/nginx-nodb.conf:/etc/nginx/nginx.conf
+    ports:
+      - 88:88

@@ -1,0 +1,66 @@
+services:
+  mongodb:
+    build: ./mongodb
+    image: tms-mongodb/mongo:latest
+    container_name: aly-mongo
+    # restart: always
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mongo_dk_db:/data/db
+    ports:
+      - '27027:27017'
+    logging:
+      driver: 'none'
+
+  redis:
+    image: redis
+    container_name: aly-redis
+    volumes:
+      # - ./datadir:/data
+      - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - /Users/lya/Desktop/work/logs/redis:/logs
+    command:
+      - /bin/bash
+      - -c
+      - |
+        chmod -R 777 /logs
+        redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6399:6379
+
+  db:
+    image: mariadb
+    container_name: aly-dev189-db
+    # restart: always
+    ports:
+      - 3366:3306
+    volumes:
+      - /Users/lya/Desktop/work/db_data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  php-fpm:
+    build: ./php-fpm
+    image: xxt/php-fpm
+    container_name: aly-dev189-php-fpm
+    volumes:
+      - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
+
+  nginx:
+    build: ./nginx
+    image: xxt/nginx
+    container_name: aly-dev189-nginx
+    volumes:
+      - ./nginx/nginx-dev189.conf:/etc/nginx/nginx.conf
+      - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
+      - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
+    links:
+      - php-fpm
+    ports:
+      - 88:80
+
+  adminer:
+    image: adminer
+    container_name: aly-dev189-adminer
+    # restart: always
+    # ports:
+    #   - 8089:8080
