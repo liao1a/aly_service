@@ -18,6 +18,8 @@ services:
     logging:
       driver: 'none'
     entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_PORT:-37017}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]
+    networks:
+      - aly_mongo_replica
 
   mongodb-s:
     build: ./mongodb
@@ -32,6 +34,8 @@ services:
     logging:
       driver: 'none'
     entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_S_PORT:-37018}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]
+    networks:
+      - aly_mongo_replica
 
   mongodb-a:
     build: ./mongodb
@@ -46,3 +50,9 @@ services:
     logging:
       driver: 'none'
     entrypoint: [ "mongod", "--bind_ip_all", "--port", "${TMW_MONGODB_A_PORT:-37019}", "--replSet", "${TMW_REPLICA_SET_NAME:-aly_mongo_rs}" ]
+    networks:
+      - aly_mongo_replica
+
+networks:
+  aly_mongo_replica:
+    driver: bridge

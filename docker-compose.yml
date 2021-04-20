@@ -10,6 +10,8 @@ services:
       - '27027:27017'
     logging:
       driver: 'none'
+    networks:
+      - aly_service
 
   redis:
     image: redis
@@ -26,6 +28,8 @@ services:
         redis-server /usr/local/etc/redis/redis.conf
     ports:
       - 6399:6379
+    networks:
+      - aly_service
 
   db:
     image: mariadb
@@ -37,6 +41,8 @@ services:
       - /Users/lya/Desktop/work/db_data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+    networks:
+      - aly_service
 
   php-fpm:
     build: ./php-fpm
@@ -44,6 +50,8 @@ services:
     container_name: aly-dev189-php-fpm
     volumes:
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
+    networks:
+      - aly_service
 
   nginx:
     build: ./nginx
@@ -56,11 +64,19 @@ services:
     links:
       - php-fpm
     ports:
-      - 88:80
+      - 8088:80
+    networks:
+      - aly_service
 
-  adminer:
-    image: adminer
-    container_name: aly-dev189-adminer
-    # restart: always
-    # ports:
-    #   - 8089:8080
+  # adminer:
+  #   image: adminer
+  #   container_name: aly-dev189-adminer
+  #   # restart: always
+  #   # ports:
+  #   #   - 8089:8080
+  #   networks:
+  #     - aly_service
+
+networks:
+  aly_service:
+    driver: bridge
