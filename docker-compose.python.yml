@@ -1,0 +1,20 @@
+version: '3'
+services:
+  python:  # docker-compose编排名称，一般同微服务名称，注意不要与其他服务重名
+    image: "python:3.7.0b4"  # docker镜像名及版本
+    container_name: aly_python_demo  # docker容器名
+    volumes:  # 挂载目录
+      - ../py:/app  # 项目相关
+      - ./python:/docker
+    ports:  # 端口映射
+      - "8188:8880"
+    environment:  # 配置环境变量
+      - TZ=Asia/Shanghai 
+    command: bash /docker/run.sh
+    # restart: unless-stopped  # 自动启动：unless-stopped、always等，unless-stopped为非正常停止则自动启动
+    networks:
+      - aly_python_demo
+
+networks:
+  aly_python_demo:
+    driver: bridge
