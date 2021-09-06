@@ -59,12 +59,15 @@ services:
     container_name: aly-dev189-nginx
     volumes:
       - ./nginx/nginx-dev189.conf:/etc/nginx/nginx.conf
+      - ./nginx/server.crt:/etc/nginx/server.crt
+      - ./nginx/server.key:/etc/nginx/server.key
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
       - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
     links:
       - php-fpm
     ports:
       - 8088:80
+      - 8044:443
     networks:
       - aly_service
 
