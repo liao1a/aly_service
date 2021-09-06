@@ -23,7 +23,6 @@ services:
 
   mongodb-s:
     build: ./mongodb
-    image: tms-mongodb/mongo:latest
     container_name: aly-mongo-s
     volumes:
       - /Users/lya/Desktop/work/db_data/mongodb-s:/data/db
@@ -39,7 +38,6 @@ services:
 
   mongodb-a:
     build: ./mongodb
-    image: tms-mongodb/mongo:latest
     container_name: aly-mongo-a
     volumes:
       - /Users/lya/Desktop/work/db_data/mongodb-a:/data/db

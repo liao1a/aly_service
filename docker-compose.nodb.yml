@@ -2,7 +2,6 @@
 services:
   mongodb:
     build: ./mongodb
-    image: tms-mongodb/mongo:latest
     container_name: aly-mongo
     restart: always
     volumes:
@@ -30,7 +29,6 @@ services:
 
   nginx:
     build: ./nginx
-    image: nginx
     container_name: aly-nginx
     volumes:
       - ./nginx/nginx-nodb.conf:/etc/nginx/nginx.conf

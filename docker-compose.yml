@@ -1,7 +1,6 @@
 services:
   mongodb:
     build: ./mongodb
-    image: tms-mongodb/mongo:latest
     container_name: aly-mongo
     # restart: always
     volumes:
@@ -45,8 +44,8 @@ services:
       - aly_service
 
   php-fpm:
-    build: ./php-fpm
-    image: xxt/php-fpm
+    #build: ./php-fpm
+    image: liao1a/php-fpm:v1.0
     container_name: aly-dev189-php-fpm
     volumes:
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
@@ -55,7 +54,6 @@ services:
 
   nginx:
     build: ./nginx
-    image: xxt/nginx
     container_name: aly-dev189-nginx
     volumes:
       - ./nginx/nginx-dev189.conf:/etc/nginx/nginx.conf
@@ -71,14 +69,14 @@ services:
     networks:
       - aly_service
 
-  # adminer:
-  #   image: adminer
-  #   container_name: aly-dev189-adminer
-  #   # restart: always
-  #   # ports:
-  #   #   - 8089:8080
-  #   networks:
-  #     - aly_service
+  adminer:
+    image: adminer
+    container_name: aly-dev189-adminer
+    restart: always
+    ports:
+      - 8089:8080
+    networks:
+      - aly_service
 
 networks:
   aly_service:
