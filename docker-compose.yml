@@ -69,14 +69,14 @@ services:
     networks:
       - aly_service
 
-  adminer:
-    image: adminer
-    container_name: aly-dev189-adminer
-    restart: always
-    ports:
-      - 8089:8080
-    networks:
-      - aly_service
+  # adminer:
+  #   image: adminer
+  #   container_name: aly-dev189-adminer
+  #   restart: always
+  #   ports:
+  #     - 8089:8080
+  #   networks:
+  #     - aly_service
 
 networks:
   aly_service:
