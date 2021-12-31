@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  conductor-server:
+    image: ideaplexus/conductor-server
+    container_name: aly_conductor_server_2
+    volumes:
+      - /Users/lya/Desktop/work/aly_service/conductor/config:/app/config
+    ports:
+      - 8080:8080
+    networks:
+      - aly_conductor2
+
+  conductor-ui:
+    image: ideaplexus/conductor-ui
+    container_name: aly_conductor_ui_2
+    environment:
+      - WF_SERVER=http://host.docker.internal:8080/api/
+    ports:
+      - 5000:5000
+    networks:
+      - aly_conductor2
+
+networks:
+  aly_conductor2:
+    driver: bridge

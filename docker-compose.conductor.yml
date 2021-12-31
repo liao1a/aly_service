@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+
+  conductor-server:
+    build: ./conductor
+    image: flaviostutz/conductor-server
+    container_name: aly_conductor_server
+    environment:
+      - DYNOMITE_HOSTS=host.docker.internal:8060:us-east-1c
+      - ELASTICSEARCH_URL=elasticsearch:9300
+      - LOADSAMPLE=true
+      - PROVISIONING_UPDATE_EXISTING_TASKS=true
+    ports:
+      - 8070:8080
+
+  conductor-ui:
+    image: flaviostutz/conductor-ui
+    container_name: aly_conductor_ui
+    environment:
+      - WF_SERVER=http://host.docker.internal:8070/api/
+    ports:
+      - 5001:5000
+
+  dynomite:
+    image: flaviostutz/dynomite
+    container_name: aly_conductor_dynomite
+    ports:
+      - 8060:8102
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.8
+    container_name: aly_conductor_elasticsearch
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - transport.host=0.0.0.0
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200
+      - 9300:9300

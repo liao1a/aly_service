@@ -48,6 +48,8 @@ services:
     image: liao1a/php-fpm:v1.0
     container_name: aly-dev189-php-fpm
     volumes:
+      # - ./php-fpm/php-dev.ini:/usr/local/etc/php/php.ini-development
+      # - ./php-fpm/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
     networks:
       - aly_service
@@ -61,8 +63,8 @@ services:
       - ./nginx/server.key:/etc/nginx/server.key
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
       - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
-    links:
-      - php-fpm
+    # links:
+    #   - php-fpm
     ports:
       - 8088:80
       - 8044:443
