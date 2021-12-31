@@ -16,9 +16,9 @@ services:
     image: redis
     container_name: aly-redis
     volumes:
-      # - ./datadir:/data
+      #- ./datadir:/data
       - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - /Users/lya/Desktop/work/logs/redis:/logs
+      #- /Users/lya/Desktop/work/logs/redis:/logs
     command:
       - /bin/bash
       - -c
