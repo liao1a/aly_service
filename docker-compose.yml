@@ -18,11 +18,12 @@ services:
     volumes:
       #- ./datadir:/data
       - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      #- /Users/lya/Desktop/work/logs/redis:/logs
+      # - /Users/lya/Desktop/work/logs/redis:/logs
     command:
       - /bin/bash
       - -c
       - |
+        mkdir -p /logs
         chmod -R 777 /logs
         redis-server /usr/local/etc/redis/redis.conf
     ports:
