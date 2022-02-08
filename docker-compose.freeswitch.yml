@@ -1,0 +1,20 @@
+services:
+  freeswitch:
+    image: safarov/freeswitch
+    environment:
+      - SOUND_RATES=8000:16000
+      - SOUND_TYPES=music:en-us-callie
+      # - EPMD=true
+      # - DUMPCAP=true
+    ports:
+      # - "5060:5060/udp"
+      - "5060:5060"
+      - "5066:5066"
+      - "8443:7443"
+    container_name: aly-freeswitch
+    networks:
+      - aly_freeswitch
+
+networks:
+  aly_freeswitch:
+    driver: bridge
