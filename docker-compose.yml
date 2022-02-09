@@ -46,7 +46,7 @@ services:
 
   php-fpm:
     #build: ./php-fpm
-    image: liao1a/php-fpm:v1.0
+    image: liao1a/php-fpm:7.3
     container_name: aly-dev189-php-fpm
     volumes:
       # - ./php-fpm/php-dev.ini:/usr/local/etc/php/php.ini-development
