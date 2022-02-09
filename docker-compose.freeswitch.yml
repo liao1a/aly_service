@@ -1,8 +1,8 @@
 services:
   freeswitch:
-    # image: safarov/freeswitch
+    image: safarov/freeswitch
     # build: ./freeswitch
-    image: webitel/freeswitch
+    # image: webitel/freeswitch
     # image: mmtnrw/freeswitch
     environment:
       - SOUND_RATES=8000:16000
@@ -10,9 +10,9 @@ services:
       - EPMD=true
       - DUMPCAP=true
     # volumes:
-      # - /Users/lya/Desktop/work/files/freeswitch/freeswitch-sounds:/usr/share/freeswitch/sounds
-      # - /Users/lya/Desktop/work/files/freeswitch/freeswitch/:/etc/freeswitch
-      # - /Users/lya/Desktop/work/aly_service/freeswitch/conf:/usr/local/freeswitch/conf
+      - /Users/lya/Desktop/work/files/freeswitch/freeswitch-sounds:/usr/share/freeswitch/sounds
+      - /Users/lya/Desktop/work/files/freeswitch/freeswitch/:/etc/freeswitch
+      - /Users/lya/Desktop/work/aly_service/freeswitch/conf:/usr/local/freeswitch/conf
     ports:
       - "5060:5060/tcp"
       - "5060:5060/udp"
@@ -22,9 +22,35 @@ services:
       # - "60535-65535:60535-65535/udp"
       - "5066:5066"
       - "8443:7443"
+    # links:
+    #   - freeswitch-base
     container_name: aly-freeswitch
     networks:
       - aly_freeswitch
+
+  # freeswitch-base:
+  #   image: webitel/freeswitch-base:vanilla
+  #   # environment:
+  #   #   - SOUND_RATES=8000:16000
+  #   #   - SOUND_TYPES=music:en-us-callie
+  #   #   - EPMD=true
+  #   #   - DUMPCAP=true
+  #   # volumes:
+  #     # - /Users/lya/Desktop/work/files/freeswitch/freeswitch-sounds:/usr/share/freeswitch/sounds
+  #     # - /Users/lya/Desktop/work/files/freeswitch/freeswitch/:/etc/freeswitch
+  #     # - /Users/lya/Desktop/work/aly_service/freeswitch/conf:/usr/local/freeswitch/conf
+  #   # ports:
+  #   #   - "5060:5060/tcp"
+  #   #   - "5060:5060/udp"
+  #   #   - "5080:5080/tcp"
+  #   #   - "5080:5080/udp"
+  #   #   - "8021:8021/tcp"
+  #   #   # - "60535-65535:60535-65535/udp"
+  #   #   - "5066:5066"
+  #   #   - "8443:7443"
+  #   container_name: aly-freeswitch-base
+  #   networks:
+  #     - aly_freeswitch
 
 networks:
   aly_freeswitch:
