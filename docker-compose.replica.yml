@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile-primary
     container_name: aly-mongo-p
     volumes:
-      - /Users/lya/Desktop/work/db_data/mongodb-p:/data/db
+      - /Users/lya/db_data/mongodb-p:/data/db
     expose:
       - ${TMW_MONGODB_PORT:-37017}
     ports:
@@ -25,7 +25,7 @@ services:
     build: ./mongodb
     container_name: aly-mongo-s
     volumes:
-      - /Users/lya/Desktop/work/db_data/mongodb-s:/data/db
+      - /Users/lya/db_data/mongodb-s:/data/db
     expose:
       - ${TMW_MONGODB_S_PORT:-37018}
     ports:
@@ -40,7 +40,7 @@ services:
     build: ./mongodb
     container_name: aly-mongo-a
     volumes:
-      - /Users/lya/Desktop/work/db_data/mongodb-a:/data/db
+      - /Users/lya/db_data/mongodb-a:/data/db
     expose:
       - ${TMW_MONGODB_A_PORT:-37019}
     ports:

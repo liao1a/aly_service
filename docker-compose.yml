@@ -6,7 +6,7 @@ services:
     volumes:
       - /Users/lya/Desktop/work/db_data/mongo_dk_db:/data/db
     ports:
-      - '27027:27017'
+      - '27017:27017'
     logging:
       driver: 'none'
     networks:
@@ -27,7 +27,7 @@ services:
         chmod -R 777 /logs
         redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - 6399:6379
+      - 6379:6379
     networks:
       - aly_service
 
@@ -36,7 +36,7 @@ services:
     container_name: aly-dev189-db
     # restart: always
     ports:
-      - 3366:3306
+      - 3306:3306
     volumes:
       - /Users/lya/Desktop/work/db_data/mysql:/var/lib/mysql
     environment:
@@ -63,23 +63,36 @@ services:
       - ./nginx/server.crt:/etc/nginx/server.crt
       - ./nginx/server.key:/etc/nginx/server.key
       - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
-      - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
-    # links:
-    #   - php-fpm
+      # - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
+    links:
+      - php-fpm
     ports:
       - 8088:80
       - 8044:443
     networks:
       - aly_service
+  
+  nginx-default:
+    build: ./nginx
+    container_name: aly-nginx-default
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /Users/lya/Desktop/work/html:/usr/share/nginx/html
+    # links:
+    #   - php-fpm
+    ports:
+      - 8089:80
+    networks:
+      - aly_service
 
-  # adminer:
-  #   image: adminer
-  #   container_name: aly-dev189-adminer
-  #   restart: always
-  #   ports:
-  #     - 8089:8080
-  #   networks:
-  #     - aly_service
+  adminer:
+    image: adminer
+    container_name: aly-dev189-adminer
+    restart: always
+    ports:
+      - 8099:8080
+    networks:
+      - aly_service
 
 networks:
   aly_service:
