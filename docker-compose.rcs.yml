@@ -1,0 +1,72 @@
+version: '3.7'
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: e2e5gmx_db
+    #volumes:
+    #   - ./mariadb/data:/var/lib/mysql
+    #   - ./mariadb/log:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3336:3306
+    networks:
+      e2e5gmx_net:
+        ipv4_address: 192.168.129.11
+
+  freeswitch:
+    # build:
+      # context: ../freeswitch
+      # dockerfile: Dockerfile
+    image: liao1a/aly_freeswitch:1.2
+    container_name: e2e5gmx_fs
+    volumes:
+      - ./freeswitch/conf/vars.xml-dev:/etc/freeswitch/vars.xml-dev
+      - ./freeswitch/conf/autoload_configs/event_socket.conf.xml:/etc/freeswitch/autoload_configs/event_socket.conf.xml
+      - ./freeswitch/conf/autoload_configs/modules.conf.xml:/etc/freeswitch/autoload_configs/modules.conf.xml
+      - ./freeswitch/conf/chatplan/common.xml-dev:/etc/freeswitch/chatplan/common.xml
+      - ./freeswitch/start_fs.sh:/usr/local/bin/start_fs.sh
+    environment:
+      # FS对外监听地址
+      FS_EXTERNAL_SIP_IP: freeswitch
+    entrypoint: ['/usr/local/bin/start_fs.sh']
+    networks:
+      e2e5gmx_net:
+        ipv4_address: 192.168.129.3
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - NET_RAW
+
+  osips:
+    # build:
+    #   context: ../opensips
+    #   dockerfile: Dockerfile
+    image: liao1a/aly_osip:1.2
+    container_name: e2e5gmx_osips
+    volumes:
+      - ./opensips/conf/opensips-dev.cfg:/usr/local/etc/opensips/opensips-dev.cfg
+      - ./opensips/conf/opensips-cli.cfg:/etc/opensips-cli.cfg
+      - ./opensips/start_osips.sh:/usr/local/bin/start_osips.sh
+    environment:
+      # 消息处理模块IP地址
+      FS_HOST_IP: freeswitch
+      # 消息处理模块监听地址
+      FS_DU: udp:freeswitch:5060
+      # 认证管理模块接口路径
+      OAUTH_URL: http://host.docker.internal:3331/oauth/ue/auth/client
+    entrypoint: ['/usr/local/bin/start_osips.sh']
+    ports:
+      - 5066:5066
+    networks:
+      e2e5gmx_net:
+        ipv4_address: 192.168.129.2
+    depends_on:
+      - mariadb
+
+networks:
+  e2e5gmx_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.129.0/24'

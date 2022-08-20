@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<include>
+  <context name="common">
+
+    <extension name="e2e5gmx">
+      <condition field="to" expression="^(.*)$">
+        <!--<action application="set" data="final_delivery=true"/>-->
+        <!--<action application="lua" data="handle_chat.lua"/>-->
+        <action application="set" data='sip_h_Conversation-ID=${sip_h_X-Conversation-ID}' />
+        <action application="set" data='sip_h_Contribution-ID=${sip_h_X-Contribution-ID}' />
+        <action application="fire" data="" />
+      </condition>
+    </extension>
+
+  </context>
+</include>

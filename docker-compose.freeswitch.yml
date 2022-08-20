@@ -9,9 +9,9 @@ services:
     #   - EPMD=true
     #   - DUMPCAP=true
     # volumes:
-      # - /Users/lya/Desktop/work/files/freeswitch/freeswitch-sounds:/usr/share/freeswitch/sounds
-      # - /Users/lya/Desktop/work/files/freeswitch/freeswitch/:/etc/freeswitch
-      # - /Users/lya/Desktop/work/aly_service/freeswitch/conf:/usr/local/freeswitch/conf
+      # - /Users/lya/work/files/freeswitch/freeswitch-sounds:/usr/share/freeswitch/sounds
+      # - /Users/lya/work/files/freeswitch/freeswitch/:/etc/freeswitch
+      # - /Users/lya/work/aly_service/freeswitch/conf:/usr/local/freeswitch/conf
     ports:
       - "5060:5060/tcp"
       - "5060:5060/udp"
