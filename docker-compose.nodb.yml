@@ -5,7 +5,7 @@ services:
     container_name: aly-mongo
     restart: always
     volumes:
-      - /Users/lya/Desktop/work/db_data/mongo_dk_db:/data/db
+      # - /Users/lya/work/db_data/mongo_dk_db:/data/db
     ports:
       - '27027:27017'
     logging:
@@ -16,8 +16,8 @@ services:
     container_name: aly-redis
     volumes:
       # - ./datadir:/data
-      - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - /Users/lya/Desktop/work/logs/redis:/logs
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      # - /Users/lya/logs/redis:/logs
     command:
       - /bin/bash
       - -c

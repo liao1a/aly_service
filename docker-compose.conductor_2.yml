@@ -5,7 +5,7 @@ services:
     image: ideaplexus/conductor-server
     container_name: aly_conductor_server_2
     volumes:
-      - /Users/lya/Desktop/work/aly_service/conductor/config:/app/config
+      - ./conductor/config:/app/config
     ports:
       - 8080:8080
     networks:

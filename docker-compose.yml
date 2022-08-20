@@ -4,7 +4,7 @@ services:
     container_name: aly-mongo
     # restart: always
     volumes:
-      - /Users/lya/Desktop/work/db_data/mongo_dk_db:/data/db
+      - /Users/lya/db_data/mongo_dk_db:/data/db
     ports:
       - '27017:27017'
     logging:
@@ -17,8 +17,8 @@ services:
     container_name: aly-redis
     volumes:
       #- ./datadir:/data
-      - /Users/lya/Desktop/work/aly_service/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      # - /Users/lya/Desktop/work/logs/redis:/logs
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      # - /Users/lya/logs/redis:/logs
     command:
       - /bin/bash
       - -c
@@ -38,7 +38,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - /Users/lya/Desktop/work/db_data/mysql:/var/lib/mysql
+      - /Users/lya/db_data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     networks:
@@ -51,7 +51,7 @@ services:
     volumes:
       # - ./php-fpm/php-dev.ini:/usr/local/etc/php/php.ini-development
       # - ./php-fpm/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
+      - /Users/lya/work/dev189:/usr/share/nginx/html
     networks:
       - aly_service
 
@@ -62,8 +62,8 @@ services:
       - ./nginx/nginx-dev189.conf:/etc/nginx/nginx.conf
       - ./nginx/server.crt:/etc/nginx/server.crt
       - ./nginx/server.key:/etc/nginx/server.key
-      - /Users/lya/Desktop/work/dev189:/usr/share/nginx/html
-      # - /Users/lya/Desktop/work/logs/nginx:/var/log/nginx
+      - /Users/lya/work/dev189:/usr/share/nginx/html
+      # - /Users/lya/logs/nginx:/var/log/nginx
     links:
       - php-fpm
     ports:
@@ -77,7 +77,7 @@ services:
     container_name: aly-nginx-default
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /Users/lya/Desktop/work/html:/usr/share/nginx/html
+      - /Users/lya/work/html:/usr/share/nginx/html
     # links:
     #   - php-fpm
     ports:
@@ -88,7 +88,7 @@ services:
   adminer:
     image: adminer
     container_name: aly-dev189-adminer
-    restart: always
+    # restart: always
     ports:
       - 8099:8080
     networks:
