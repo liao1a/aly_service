@@ -9,8 +9,8 @@ services:
       - 6381:6381
       - 16381:16381
     volumes:
-      - ./redis-cluster/redis-1/redis.conf:/etc/redis.conf
-      - ./redis-cluster/redis-1/data:/data
+      - /Users/lya/work/aly_service/redis-cluster/redis-1/redis.conf:/etc/redis.conf
+      - /Users/lya/work/aly_service/redis-cluster/redis-1/data:/data
     command: 
       - /bin/bash
       - -c
@@ -27,8 +27,8 @@ services:
       - "6382:6382"
       - 16382:16382
     volumes:
-      - "./redis-cluster/redis-2/redis.conf:/etc/redis.conf"
-      - "./redis-cluster/redis-2/data:/data"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-2/redis.conf:/etc/redis.conf"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-2/data:/data"
     command: 
       - /bin/bash
       - -c
@@ -45,8 +45,8 @@ services:
       - "6383:6383"
       - 16383:16383
     volumes:
-      - "./redis-cluster/redis-3/redis.conf:/etc/redis.conf"
-      - "./redis-cluster/redis-3/data:/data"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-3/redis.conf:/etc/redis.conf"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-3/data:/data"
     command: 
       - /bin/bash
       - -c
@@ -63,8 +63,8 @@ services:
       - "6384:6384"
       - 16384:16384
     volumes:
-      - "./redis-cluster/redis-4/redis.conf:/etc/redis.conf"
-      - "./redis-cluster/redis-4/data:/data"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-4/redis.conf:/etc/redis.conf"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-4/data:/data"
     command: 
       - /bin/bash
       - -c
@@ -81,8 +81,8 @@ services:
       - "6385:6385"
       - 16385:16385
     volumes:
-      - "./redis-cluster/redis-5/redis.conf:/etc/redis.conf"
-      - "./redis-cluster/redis-5/data:/data"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-5/redis.conf:/etc/redis.conf"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-5/data:/data"
     command: 
       - /bin/bash
       - -c
@@ -99,8 +99,8 @@ services:
       - "6386:6386"
       - 16386:16386
     volumes:
-      - "./redis-cluster/redis-6/redis.conf:/etc/redis.conf"
-      - "./redis-cluster/redis-6/data:/data"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-6/redis.conf:/etc/redis.conf"
+      - "/Users/lya/work/aly_service/redis-cluster/redis-6/data:/data"
     command: 
       - /bin/bash
       - -c
